@@ -31,3 +31,6 @@ monolog:
     #    level:  info
 #swiftmailer:
 #    delivery_address: me@example.com
+
+hautelook_alice:
+  fixtures_path: src/AppBundle/DataFixtures/ORM

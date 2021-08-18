@@ -1,0 +1,11 @@
+AppBundle\Entity\User:
+  user (template):
+    username: <username()>
+    password: '\$2y\$13\$fxY0qaXj9krd0Xt4cV3fq.nEWEYd6r1doIfd/Xr4p8NQieNRhHOWy'
+    email: <email()>
+
+  user1 (extends user):
+    username: "Emilie"
+    email: "emilie.schott@gmail.com"
+
+  user{2..10} (extends user):

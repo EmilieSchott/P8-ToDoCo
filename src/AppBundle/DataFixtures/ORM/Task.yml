@@ -1,0 +1,5 @@
+AppBundle\Entity\Task:
+  task{1..10}:
+    createdAt: <dateTimeBetween('-1 year', 'now')>
+    title: <sentence()>
+    content: <paragraph()>

@@ -1,0 +1,10 @@
+default:
+  extensions:
+    Behat\MinkExtension:
+      base_url: https://127.0.0.1:8000/
+      goutte:
+        guzzle_parameters:
+          verify: false
+  suites:
+    default:
+      contexts: [FeatureContext]

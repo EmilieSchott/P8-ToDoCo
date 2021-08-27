@@ -3,13 +3,19 @@
 use AppBundle\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends MinkContext implements Context
+class FeatureContext extends MinkContext implements Context, KernelAwareContext
 {
     private $Id;
+    protected $kernel;
+    private $tokenStorage;
 
     /**
      * Initializes context.
@@ -18,8 +24,14 @@ class FeatureContext extends MinkContext implements Context
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-    public function __construct()
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
+        $this->tokenStorage = $tokenStorage;
+    }
+
+    public function setKernel(KernelInterface $kernelInterface)
+    {
+        $this->kernel = $kernelInterface;
     }
 
     /**
@@ -51,6 +63,13 @@ class FeatureContext extends MinkContext implements Context
         $this->fillField('username', 'Emilie');
         $this->fillField('password', 'test');
         $this->pressButton('Se connecter');
+        if (!$this->tokenStorage->getToken()) {
+            return false;
+        }
+        $user = $this->tokenStorage->getToken()->getUser();
+        if ($user instanceof UserInterface && !\in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return false;
+        }
     }
 
     /**
@@ -144,4 +163,8 @@ class FeatureContext extends MinkContext implements Context
     {
         \sleep($secondsNumber);
     }
+
+    /*
+     * @AfterSuite
+     */
 }

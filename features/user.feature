@@ -14,13 +14,12 @@ Scenario: Create a user
     Then I should be on "/users" 
     Then I should see text matching "L'utilisateur a bien été ajouté."
 
-# TO DO : status code 500: 
-#  Scenario: Edit a user 
-#    Given I am an authenticated user
-#    Given there is a "user" named "User"
-#    Given I am on the page to edit the "user" "User"
-#    When I fill in "user_email" with "other.user@example.com"
-#    When I press "Modifier"
-#    When I wait for 1 seconds
-#    Then I should be on "/users"  
-#    Then I should see text matching "L'utilisateur a bien été modifié"
+  Scenario: Edit a user 
+    Given I am an authenticated user
+    Given there is a "user" named "User"
+    Given I am on the page to edit the "user" "User"
+    When I fill in "user_email" with "other.user@example.com"
+    When I press "Modifier"
+    When I wait for 1 seconds
+    Then I should be on "/users"  
+    Then I should see text matching "L'utilisateur a bien été modifié"

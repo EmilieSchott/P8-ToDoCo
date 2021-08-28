@@ -28,16 +28,15 @@ Feature:
     Then I should be on "/tasks" 
     Then I should see text matching "La tâche a été bien été ajoutée."
 
-# TO DO : status code 500:
-#  Scenario: Edit a task 
-#    Given I am an authenticated user
-#    Given there is a "task" named "New task"
-#    Given I am on the page to edit the "task" "New task"
-#    When I fill in "task_title" with "Modified task"
-#    When I press "Modifier"
-#    When I wait for 1 seconds
-#    Then I should be on "/tasks"  
-#    Then I should see text matching "La tâche a bien été modifiée."
+  Scenario: Edit a task 
+    Given I am an authenticated user
+    Given there is a "task" named "New task"
+    Given I am on the page to edit the "task" "New task"
+    When I fill in "task_title" with "Modified task"
+    When I press "Modifier"
+    When I wait for 1 seconds
+    Then I should be on "/tasks"  
+    Then I should see text matching "La tâche a bien été modifiée."
   
   Scenario Outline: interact with a task 
     Given I am an authenticated user
@@ -50,6 +49,6 @@ Feature:
 
   Examples:
     | title            | action   | success                                                     |
-# TO DO : status code 500:   | "Modified Task"  | "delete" | "La tâche a bien été supprimée."                            |
-# TO DO : status code 500:   | "Task to toggle" | "toggle" | "La tâche Task to toggle a bien été marquée comme faite."   |
+    | "Modified Task"  | "delete" | "La tâche a bien été supprimée."                            |
+    | "Task to toggle" | "toggle" | "La tâche Task to toggle a bien été marquée comme faite."   |
 

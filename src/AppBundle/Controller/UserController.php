@@ -46,9 +46,13 @@ class UserController extends Controller
 
     /**
      * @Route("/users/{id}/edit", name="user_edit")
+     *
+     * @param mixed $id
      */
-    public function editAction(User $user, Request $request)
+    public function editAction(int $id, Request $request)
     {
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(['id' => $id]);
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);

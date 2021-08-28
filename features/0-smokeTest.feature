@@ -13,11 +13,13 @@ Feature:
     | an authenticated user     | "/"               |
     | an authenticated user     | "/tasks"          |
     | an authenticated user     | "/tasks/create"   |
+    | an authenticated user     | "/tasks/1/edit"   |
     | an admin                  | "/users"          |
     | an admin                  | "/users/create"	|
+    | an admin                  | "/users/1/edit"	|
 # TO DO : add method in TaskController: | an authenticated user     | "/tasks/done"     |
-# TO DO : status code 500:              | an authenticated user     | "/tasks/1/edit"   |
-# TO DO : status code 500:              | an admin                  | "/users/1/edit"	|
+
+
 
 
 

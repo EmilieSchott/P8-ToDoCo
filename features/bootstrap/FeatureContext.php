@@ -95,7 +95,7 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
             }
 
             if ('user' === $entity) {
-                $this->fillUserDatas($name);
+                $this->fillUserData($name);
             }
 
             $this->pressButton('Ajouter');
@@ -112,10 +112,9 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     {
         $this->fillField('task_title', $name);
         $this->fillField('task_content', 'This is the text describing the task. It should be done until the end of the week.');
-        $this->pressButton('Ajouter');
     }
 
-    public function fillUserDatas($name)
+    public function fillUserData($name)
     {
         $this->fillField('user_username', $name);
         $this->fillField('user_password_first', 'test');

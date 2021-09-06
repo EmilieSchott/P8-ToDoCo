@@ -123,22 +123,22 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     }
 
     /**
-     * @When I interact with the page to :action :name
+     * @When I interact with the :action button on :entity list page
      *
      * @param mixed $action
-     * @param mixed $name
+     * @param mixed $entity
      */
-    public function iInteractWithThePageTo($action, $name)
+    public function iInteractWithTheButtonOnListPage($action, $entity)
     {
-        if ('edit' === $action) {
-            $link = sprintf('/tasks/%s/edit', $this->id);
-            $this->clickLink($link);
-        } else {
-            $selector = \sprintf('form[action="/tasks/%s/%s"] > .btn', $this->id, $action);
-            $page = $this->getSession()->getPage();
-            $button = $page->find('css', $selector);
-            $this->pressButton($button);
+        $page = $this->getSession()->getPage();
+        $selector = \sprintf('form[action="/%ss/%s/%s"]', $entity, $this->id, $action);
+        $form = $page->find('css', $selector);
+        if (null === $form) {
+            throw new \Exception('The element is not found');
         }
+
+        $button = $form->find('css', '.btn');
+        $button->press();
     }
 
     /**

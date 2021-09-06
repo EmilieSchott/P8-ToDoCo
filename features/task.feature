@@ -41,13 +41,13 @@ Feature:
   Scenario Outline: interact with a task 
     Given I am an authenticated user
     Given there is a "task" named <title>
-    When I interact with the page to <action> <title> 
+    Given I am on "/tasks"
+    When I interact with the <action> button on "task" list page
     When I wait for 1 seconds
     Then I should be on "/tasks" 
     Then I should see text matching <success>
 
   Examples:
-    | title            | action   | success                                                     |
-    | "Modified Task"  | "toggle" | "La tâche Task to toggle a bien été marquée comme faite."   |
-    | "Modified Task"  | "delete" | "La tâche a bien été supprimée."                            |
-
+    | title            | action   | success                                                  |
+    | "Modified task"  | "toggle" | "La tâche Modified task a bien été marquée comme faite." |
+    | "Modified task"  | "delete" | "La tâche a bien été supprimée."                         |

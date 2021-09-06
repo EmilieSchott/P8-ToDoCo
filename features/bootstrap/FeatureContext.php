@@ -84,6 +84,7 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
         $this->visit(\sprintf('/%ss', $entity));
         $page = $this->getSession()->getPage();
         if ($page->find('named', ['content', $name])) {
+            throw new \Exception("L'entité existe déjà");
             $entityExists = true;
         }
 
@@ -95,14 +96,18 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
             }
 
             if ('user' === $entity) {
-                $this->fillUserData($name);
+                $this->fillUserDatas($name);
             }
 
             $this->pressButton('Ajouter');
+            $this->visit(\sprintf('/%ss', $entity));
+            $page = $this->getSession()->getPage();
         }
 
-        $this->visit(\sprintf('/%ss', $entity));
-        $link = $page->find('named', ['link', $name]);
+        $link = $page->findLink($name);
+        if (null === $link) {
+            throw new \Exception('The link is not found');
+        }
         $url = $link->getAttribute('href');
         $explodedUrl = \explode('/', $url);
         $this->id = $explodedUrl[2];
@@ -114,7 +119,7 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
         $this->fillField('task_content', 'This is the text describing the task. It should be done until the end of the week.');
     }
 
-    public function fillUserData($name)
+    public function fillUserDatas($name)
     {
         $this->fillField('user_username', $name);
         $this->fillField('user_password_first', 'test');

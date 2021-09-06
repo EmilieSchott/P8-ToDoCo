@@ -15,10 +15,12 @@ Feature:
     Then I should see text matching "L'utilisateur a bien été ajouté."
 
   Scenario: Edit a user 
-    Given I am an authenticated user
+    Given I am an admin
     Given there is a "user" named "User"
     Given I am on the page to edit the "user" "User"
-    When I fill in "username" with "OtherUser"
+    When I fill in "user_username" with "OtherUser"
+    When I fill in "user_password_first" with "test"
+    When I fill in "user_password_second" with "test"
     When I press "Modifier"
     When I wait for 1 seconds
     Then I should be on "/users"  

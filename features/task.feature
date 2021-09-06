@@ -15,7 +15,7 @@ Feature:
     | "/tasks/create" | "Retour à la liste des tâches" | "/tasks"        |
     | "/tasks"        | "Créer une tâche"              | "/tasks/create" |
 
- Scenario: Create a task 
+  Scenario: Create a task 
     Given I am an authenticated user
     Given I am on "/tasks/create"
     When I fill in "task_title" with "New task"
@@ -41,7 +41,6 @@ Feature:
   Scenario Outline: interact with a task 
     Given I am an authenticated user
     Given there is a "task" named <title>
-    Given I am on "/tasks"
     When I interact with the page to <action> <title> 
     When I wait for 1 seconds
     Then I should be on "/tasks" 
@@ -49,6 +48,6 @@ Feature:
 
   Examples:
     | title            | action   | success                                                     |
+    | "Modified Task"  | "toggle" | "La tâche Task to toggle a bien été marquée comme faite."   |
     | "Modified Task"  | "delete" | "La tâche a bien été supprimée."                            |
-    | "Task to toggle" | "toggle" | "La tâche Task to toggle a bien été marquée comme faite."   |
 

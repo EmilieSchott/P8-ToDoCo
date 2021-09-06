@@ -2,7 +2,7 @@ Feature:
   In order to have a personnal todo list
   I need to be a registered user.
 
-Scenario: Create a user 
+  Scenario: Create a user 
     Given I am an admin
     Given I am on "/users/create"
     When I fill in "user_username" with "User"
@@ -18,7 +18,7 @@ Scenario: Create a user
     Given I am an authenticated user
     Given there is a "user" named "User"
     Given I am on the page to edit the "user" "User"
-    When I fill in "user_email" with "other.user@example.com"
+    When I fill in "username" with "OtherUser"
     When I press "Modifier"
     When I wait for 1 seconds
     Then I should be on "/users"  

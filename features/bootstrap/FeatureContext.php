@@ -101,10 +101,11 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
             $this->pressButton('Ajouter');
         }
 
+        $this->visit(\sprintf('/%ss', $entity));
         $link = $page->find('named', ['link', $name]);
         $url = $link->getAttribute('href');
         $explodedUrl = \explode('/', $url);
-        $this->id = $explodedUrl[1];
+        $this->id = $explodedUrl[2];
     }
 
     public function fillTaskDatas($name)
@@ -149,7 +150,8 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
      */
     public function iAmOnThePageToEditThe($entity, $name)
     {
-        $this->visit(\sprintf('/%s/%s/edit', $entity, $this->id));
+        $this->visit(\sprintf('/%ss/%s/edit', $entity, $this->id));
+        $this->assertResponseStatus(200);
     }
 
     /**

@@ -25,7 +25,14 @@
 
 With a CLI, place you at the project folder root and :
 
+For unit tests :
+
 - To launch all tests : type in the CLI "vendor/bin/phpunit"
 - To launch only failed tests and stop when a test failed again : type in the CLI "vendor/bin/phpunit --order-by=defects --stop-on-defect"
-- To launch a specific functionnal test and see resulting page : type in the CLI "vendor/bin/phpunit --filter=yourTestNameHere > web/resultTest.html", then, in your browser, go to "https://127.0.0.1:8000/resultTest.html"
 - To generate code coverage report : type in the CLI "vendor/bin/phpunit --coverage-html web/test-coverage"
+
+for functionnal tests :
+
+- To launch all tests : type in the CLI "vendor/bin/behat"
+- To stop tests when failed : "vendor/bin/behat --stop-on-failure"
+- To launch tests from a specific feature file (in features folder) : "vendor/bin/behat features/file.feature"

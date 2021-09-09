@@ -16,3 +16,4 @@ default:
       contexts:
         - FeatureContext:
             tokenStorage: "@security.token_storage"
+            entityManager: "@doctrine.orm.default_entity_manager"

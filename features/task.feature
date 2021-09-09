@@ -15,6 +15,7 @@ Feature:
     | "/tasks/create" | "Retour à la liste des tâches" | "/tasks"        |
     | "/tasks"        | "Créer une tâche"              | "/tasks/create" |
 
+  @task_data
   Scenario: Create a task 
     Given I am an authenticated user
     Given I am on "/tasks/create"
@@ -28,6 +29,7 @@ Feature:
     Then I should be on "/tasks" 
     Then I should see text matching "La tâche a été bien été ajoutée."
 
+  @task_data
   Scenario: Edit a task 
     Given I am an authenticated user
     Given there is a "task" named "New task"
@@ -38,6 +40,7 @@ Feature:
     Then I should be on "/tasks"  
     Then I should see text matching "La tâche a bien été modifiée."
   
+  @task_data
   Scenario Outline: interact with a task 
     Given I am an authenticated user
     Given there is a "task" named <title>

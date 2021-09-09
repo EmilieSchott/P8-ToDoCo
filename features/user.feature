@@ -2,6 +2,7 @@ Feature:
   In order to have a personnal todo list
   I need to be a registered user.
 
+  @user_data
   Scenario: Create a user 
     Given I am an admin
     Given I am on "/users/create"
@@ -14,6 +15,7 @@ Feature:
     Then I should be on "/users" 
     Then I should see text matching "L'utilisateur a bien été ajouté."
 
+  @user_data
   Scenario: Edit a user 
     Given I am an admin
     Given there is a "user" named "User"

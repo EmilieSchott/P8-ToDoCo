@@ -1,6 +1,7 @@
 <?php
 
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -16,6 +17,7 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     private $id;
     protected $kernel;
     private $tokenStorage;
+    private $entityManager;
 
     /**
      * Initializes context.
@@ -24,9 +26,10 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage, EntityManager $entityManager)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->entityManager = $entityManager;
     }
 
     public function setKernel(KernelInterface $kernelInterface)
@@ -166,5 +169,38 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     public function iWaitForSeconds($secondsNumber)
     {
         \sleep($secondsNumber);
+    }
+
+    /**
+     * @AfterScenario @user_data,@task_data
+     */
+    public function deleteData()
+    {
+        $this->printCurrentUrl();
+        $createdUser = $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'User']);
+        if ($createdUser) {
+            $this->entityManager->remove($createdUser);
+            $this->entityManager->flush();
+        }
+
+        $otherUser = $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'OtherUser']);
+        if ($otherUser) {
+            $this->entityManager->remove($otherUser);
+            $this->entityManager->flush();
+        }
+
+        $newTask = $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'New task']);
+        if ($newTask) {
+            $this->entityManager->remove($newTask);
+            $this->entityManager->flush();
+        }
+
+        $modifiedTask = $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'Modified Task']);
+        if ($modifiedTask) {
+            $this->entityManager->remove($modifiedTask);
+            $this->entityManager->flush();
+        }
+
+        $this->entityManager->clear();
     }
 }

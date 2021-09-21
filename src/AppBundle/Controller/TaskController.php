@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
+use AppBundle\Handler\TaskHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,17 +22,15 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, TaskHandler $taskHandler)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $taskHandler->handleTaskForm($form)) {
             $em = $this->getDoctrine()->getManager();
-            $user = $this->getUser();
-            $task->setUser($user);
 
             $em->persist($task);
             $em->flush();

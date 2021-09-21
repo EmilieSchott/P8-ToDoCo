@@ -14,3 +14,6 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+.phpunit.result.cache
+/web/resultTest.html
+/web/test-coverage/

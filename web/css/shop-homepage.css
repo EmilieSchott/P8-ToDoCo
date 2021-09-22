@@ -49,6 +49,10 @@ body {
   color: #333;
 }
 
+.hidden-label {
+    display: none;
+}
+
 footer {
   margin: 50px 0;
 }

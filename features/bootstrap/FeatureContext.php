@@ -79,7 +79,6 @@ class FeatureContext extends MinkContext implements Context
         $this->visit(\sprintf('/%ss', $entity));
         $page = $this->getSession()->getPage();
         if ($page->find('named', ['content', $name])) {
-            throw new \Exception("L'entité existe déjà");
             $entityExists = true;
         }
 

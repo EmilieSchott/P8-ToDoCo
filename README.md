@@ -29,7 +29,7 @@ For unit tests :
 
 - To launch all tests : type in the CLI "vendor/bin/phpunit"
 - To launch only failed tests and stop when a test failed again : type in the CLI "vendor/bin/phpunit --order-by=defects --stop-on-defect"
-- To generate code coverage report : type in the CLI "vendor/bin/phpunit --coverage-html web/test-coverage"
+- To generate code coverage report : type in the CLI "vendor/bin/phpunit --coverage-html web/test-coverage" then, in your browser, visit "https://your-website/test-coverage/"
 
 for functionnal tests :
 

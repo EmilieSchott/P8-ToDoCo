@@ -34,6 +34,11 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iAmAnUnauthenticatedUser()
     {
+        $this->visit('/login');
+        $page = $this->getSession()->getPage();
+        if ($page->findLink('Se déconnecter')) {
+            $this->clickLink('Se déconnecter');
+        }
     }
 
     /**
@@ -43,7 +48,27 @@ class FeatureContext extends MinkContext implements Context
     public function iAmAnAuthenticatedUser()
     {
         $this->visit('/login');
+        $page = $this->getSession()->getPage();
+        if ($page->findLink('Se déconnecter')) {
+            $this->clickLink('Se déconnecter');
+        }
         $this->fillField('username', 'celia68');
+        $this->fillField('password', 'test');
+        $this->pressButton('Se connecter');
+    }
+
+    /**
+     * @Given I am an other authenticated user
+     * @userLoggin
+     */
+    public function iAmAnOtherAuthenticatedUser()
+    {
+        $this->visit('/login');
+        $page = $this->getSession()->getPage();
+        if ($page->findLink('Se déconnecter')) {
+            $this->clickLink('Se déconnecter');
+        }
+        $this->fillField('username', 'lane65');
         $this->fillField('password', 'test');
         $this->pressButton('Se connecter');
     }
@@ -55,6 +80,10 @@ class FeatureContext extends MinkContext implements Context
     public function iAmAnAdmin()
     {
         $this->visit('/login');
+        $page = $this->getSession()->getPage();
+        if ($page->findLink('Se déconnecter')) {
+            $this->clickLink('Se déconnecter');
+        }
         $this->fillField('username', 'Emilie');
         $this->fillField('password', 'test');
         $this->pressButton('Se connecter');
@@ -65,6 +94,22 @@ class FeatureContext extends MinkContext implements Context
         if ($user instanceof UserInterface && !\in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return false;
         }
+    }
+
+    /**
+     * @Given I am the user Anonyme
+     * @userLoggin
+     */
+    public function iAmTheUserAnonyme()
+    {
+        $this->visit('/login');
+        $page = $this->getSession()->getPage();
+        if ($page->findLink('Se déconnecter')) {
+            $this->clickLink('Se déconnecter');
+        }
+        $this->fillField('username', 'Anonyme');
+        $this->fillField('password', 'test');
+        $this->pressButton('Se connecter');
     }
 
     /**

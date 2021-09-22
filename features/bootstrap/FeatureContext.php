@@ -91,6 +91,7 @@ class FeatureContext extends MinkContext implements Context
             }
 
             if ('user' === $entity) {
+                throw new \Exception("Je m'aprête à créer un user parce qu'il n'y en a pas");
                 $this->fillUserDatas($name);
             }
 

@@ -90,7 +90,7 @@ class TaskController extends Controller
         $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
         $anonyme = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(['username' => 'Anonyme']);
 
-        if ($task->getUser() === $this->getUser() || ($task->getUser() === $anonyme && in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))) {
+        if (($task->getUser() === $this->getUser() && $task->getUser() !== $anonyme) || ($task->getUser() === $anonyme && in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);
             $entityManager->flush();

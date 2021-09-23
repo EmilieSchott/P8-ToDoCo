@@ -33,7 +33,7 @@ Feature:
   Scenario: Edit a task 
     Given I am an authenticated user
     Given there is a "task" named "New task"
-    Given I am on the page to edit the "task" "New task"
+    Given I am on the page to edit the "task"
     When I fill in "task_title" with "Modified task"
     When I press "Modifier"
     When I wait for 1 seconds

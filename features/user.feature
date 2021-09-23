@@ -19,7 +19,7 @@ Feature:
   Scenario: Edit a user 
     Given I am an admin
     Given there is a "user" named "User"
-    Given I am on the page to edit the "user" "User"
+    Given I am on the page to edit the "user"
     When I fill in "user_username" with "OtherUser"
     When I fill in "user_password_first" with "test"
     When I fill in "user_password_second" with "test"

@@ -1,13 +1,13 @@
 <?php
 
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Defines application features from the specific context.
@@ -150,12 +150,11 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     }
 
     /**
-     * @Given I am on the page to edit the :entity :name
+     * @Given I am on the page to edit the :entity
      *
      * @param mixed $entity
-     * @param mixed $name
      */
-    public function iAmOnThePageToEditThe($entity, $name)
+    public function iAmOnThePageToEditThe($entity)
     {
         $this->visit(\sprintf('/%ss/%s/edit', $entity, $this->id));
         $this->assertResponseStatus(200);

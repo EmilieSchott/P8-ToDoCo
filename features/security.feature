@@ -8,6 +8,7 @@ Feature:
     When I fill in "username" with "celia68"
     When I fill in "password" with "test"
     When I press "Se connecter"
+    Then I should see "Se déconnecter"
 
   Scenario: Log out
     Given I am an authenticated user

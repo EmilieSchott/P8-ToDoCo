@@ -19,6 +19,8 @@
     Don't forget to hash your password before type it in the fixtures. Use "symfony console security:hash-password" command to obtain it. If the hashed password contains "\$" character, you should escape it.
     Then type in CLI : "php bin/console hautelook:fixtures:load".
 
+6. In a CLI, type : "composer dump-autoload --optimize" to generate optimize classmap.
+
 ---
 
 ## Documentation

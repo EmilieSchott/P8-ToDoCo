@@ -216,6 +216,8 @@ class FeatureContext extends MinkContext implements Context
             $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'OtherUser']),
             $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'New task']),
             $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'Modified Task']),
+            $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'Task than nobody except me can delete']),
+            $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'Task created by Anonyme']),
         ];
 
         foreach ($datasToErase as $entity) {

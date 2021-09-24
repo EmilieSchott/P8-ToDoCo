@@ -1,21 +1,18 @@
 <?php
 
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends MinkContext implements Context, KernelAwareContext
+class FeatureContext extends MinkContext implements Context
 {
     private $id;
-    protected $kernel;
     private $tokenStorage;
     private $entityManager;
 
@@ -30,11 +27,6 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     {
         $this->tokenStorage = $tokenStorage;
         $this->entityManager = $entityManager;
-    }
-
-    public function setKernel(KernelInterface $kernelInterface)
-    {
-        $this->kernel = $kernelInterface;
     }
 
     /**
@@ -171,33 +163,22 @@ class FeatureContext extends MinkContext implements Context, KernelAwareContext
     }
 
     /**
-     * @AfterScenario @user_data,@task_data
+     * @AfterScenario @erase_datas
      */
     public function deleteData()
     {
-        $this->printCurrentUrl();
-        $createdUser = $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'User']);
-        if ($createdUser) {
-            $this->entityManager->remove($createdUser);
-            $this->entityManager->flush();
-        }
+        $datasToErase = [
+            $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'User']),
+            $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'OtherUser']),
+            $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'New task']),
+            $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'Modified Task']),
+        ];
 
-        $otherUser = $this->entityManager->getRepository('AppBundle:User')->findOneBy(['username' => 'OtherUser']);
-        if ($otherUser) {
-            $this->entityManager->remove($otherUser);
-            $this->entityManager->flush();
-        }
-
-        $newTask = $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'New task']);
-        if ($newTask) {
-            $this->entityManager->remove($newTask);
-            $this->entityManager->flush();
-        }
-
-        $modifiedTask = $this->entityManager->getRepository('AppBundle:Task')->findOneBy(['title' => 'Modified Task']);
-        if ($modifiedTask) {
-            $this->entityManager->remove($modifiedTask);
-            $this->entityManager->flush();
+        foreach ($datasToErase as $entity) {
+            if (null !== $entity) {
+                $this->entityManager->remove($entity);
+                $this->entityManager->flush();
+            }
         }
 
         $this->entityManager->clear();

@@ -27,3 +27,17 @@ Feature:
     When I wait for 1 seconds
     Then I should be on "/users"  
     Then I should see text matching "L'utilisateur a bien été modifié"
+
+  Scenario Outline: Authenticated users other than admin can't access to users management pages.
+    Given I am <role>
+    When I go to <url>
+    Then the response status code should be <code>
+
+  Examples:
+    | role                  | url             | code |
+    | an authenticated user | "/users"        | 403  |
+    | an authenticated user | "/users/create" | 403	 |
+    | an authenticated user | "/users/1/edit" | 403	 |
+
+
+

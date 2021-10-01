@@ -45,13 +45,15 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function editAction(Task $task, Request $request)
+    public function editAction(int $id, Request $request)
     {
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -68,8 +70,9 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
-    public function toggleTaskAction(Task $task)
+    public function toggleTaskAction(int $id)
     {
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
@@ -81,8 +84,9 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTaskAction(Task $task)
+    public function deleteTaskAction(int $id)
     {
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

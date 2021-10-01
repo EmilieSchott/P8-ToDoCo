@@ -1,0 +1,19 @@
+default:
+  extensions:
+    Behat\Symfony2Extension:
+      kernel:
+        path: app/AppKernel.php
+    Behat\MinkExtension:
+      base_url: https://127.0.0.1:8000/
+      goutte:
+        guzzle_parameters:
+          verify: false
+      sessions:
+        default:
+          symfony2: ~
+  suites:
+    default:
+      contexts:
+        - FeatureContext:
+            tokenStorage: "@security.token_storage"
+            entityManager: "@doctrine.orm.default_entity_manager"

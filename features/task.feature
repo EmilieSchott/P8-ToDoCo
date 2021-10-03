@@ -54,3 +54,27 @@ Feature:
     | title            | action   | success                                                  |
     | "Modified task"  | "toggle" | "La tâche Modified task a bien été marquée comme faite." |
     | "Modified task"  | "delete" | "La tâche a bien été supprimée."                         |
+
+  Scenario: A task can't be deleted by an other user than the one who created it.
+    Given I am an authenticated user
+    Given there is a "task" named "Task than nobody except me can delete"
+    Given I am an other authenticated user
+    Given I am on "/tasks"
+    When I interact with the "delete" button on "task" list page
+    When I wait for 1 seconds
+    Then the response status code should be 403
+
+  Scenario Outline: A task create by the user "Anonyme" can only be deleted by an admin.
+    Given I am the user Anonyme
+    Given there is a "task" named "Task created by Anonyme"
+    Given I am <role>
+    Given I am on "/tasks"
+    When I interact with the "delete" button on "task" list page
+    When I wait for 1 seconds
+    Then the response status code should be <code>
+
+  Examples:
+    | role                  | code  |
+    | an admin              | 200   |
+    | the user Anonyme      | 403	|
+    | an authenticated user | 403	|

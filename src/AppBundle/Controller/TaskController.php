@@ -88,12 +88,18 @@ class TaskController extends Controller
     public function deleteTaskAction(int $id)
     {
         $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($task);
-        $entityManager->flush();
+        $anonyme = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(['username' => 'Anonyme']);
 
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
+        if (($task->getUser() === $this->getUser() && $task->getUser() !== $anonyme) || ($task->getUser() === $anonyme && in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($task);
+            $entityManager->flush();
 
-        return $this->redirectToRoute('task_list');
+            $this->addFlash('success', 'La tâche a bien été supprimée.');
+
+            return $this->redirectToRoute('task_list');
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Defines application features from the specific context.
@@ -91,7 +91,6 @@ class FeatureContext extends MinkContext implements Context
             }
 
             if ('user' === $entity) {
-                throw new \Exception("Je m'aprête à créer un user parce qu'il n'y en a pas");
                 $this->fillUserDatas($name);
             }
 

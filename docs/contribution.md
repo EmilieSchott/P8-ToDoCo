@@ -11,19 +11,19 @@ To propose modifications to the application, you should install [Git](https://gi
 Don't forget to configure Git :
 
 - Indicate your identity :
-  - "*git config --global user.name 'John Doe'*"
-  - "*git config --global user.email 'john.doe@example.com'*"
+  - "_git config --global user.name 'John Doe'_"
+  - "_git config --global user.email 'john.doe@example.com'_"
 - Improve lisibility by activate colors, by typing:
-  - "*git config --global color.diff auto*"
-  - "*git config --global color.status auto*"
-  - "*git config --global color.branch auto*"
+  - "_git config --global color.diff auto_"
+  - "_git config --global color.status auto_"
+  - "_git config --global color.branch auto_"
 - Indicate an editor :
-  - "*git config --global core.editor editor-name*"
-  - or "*git config --global core.editor "'path\to\editor.exe' -w*"
+  - "_git config --global core.editor editor-name_"
+  - or "_git config --global core.editor "'path\to\editor.exe' -w_"
 - We strongly recommand to install [Meld](https://meldmerge.org/) too and configure Git to use it, by typing :
-  - to merge : "*git config --global merge.tool meld*"
-  - to see differences : "*git config --global diff.tool meld*"
-  - (on windows 10, you should indicate path to meld executable too by typing : "*git config --global merge.tool.path 'C:\your\path\to\Meld.exe'*")
+  - to merge : "_git config --global merge.tool meld_"
+  - to see differences : "_git config --global diff.tool meld_"
+  - (on windows 10, you should indicate path to meld executable too by typing : "_git config --global merge.tool.path 'C:\your\path\to\Meld.exe'_")
 
 ### B. Install the project on your computer
 
@@ -35,23 +35,23 @@ Commit your modifications allow you to keep trace of the modifications and to go
 
 - Run Git on your computer
 - Place yourself in the project repository (use "cd" command)
-- Control the existant branches in the project : "*git branch*"
-  - If the feature branch on which you want to work allready exists : "*git checkout feature-branch-name*"
+- Control the existant branches in the project : "_git branch_"
+  - If the feature branch on which you want to work allready exists : "_git checkout feature-branch-name_"
   - If you should create a branch for a new feature:
-    - Place yourself on the branch "*develop*" : "*git checkout develop*"
-    - Create a branch for your feature and place yourself on it by typing : "*git checkout -b new-feature-branch-name*" (usually, branch name is formated like this : "*feature/purpose_of_the_feature*")
-- After modifications, add all the files you modified to stage by typing "*git add .*"
-- Create a commit to register your modifications to these files by typing "*git commit*", then write a comment in the editor to explain what you did, on the first line.
+    - Place yourself on the branch "_develop_" : "_git checkout develop_"
+    - Create a branch for your feature and place yourself on it by typing : "_git checkout -b new-feature-branch-name_" (usually, branch name is formated like this : "_feature/purpose_of_the_feature_")
+- After modifications, add all the files you modified to stage by typing "_git add ._"
+- Create a commit to register your modifications to these files by typing "_git commit_", then write a comment in the editor to explain what you did, on the first line.
 
 ### D. Push your code on Github
 
-- The first time you want to push something on the remote repository, place yourself in the project repository with "*Git*" (use "*cd*" command) and create a link between your computer and the remote repository by typing : "*git remote add origin htpps://github.com/project-url*"
-("*origin*" is the conventional name for a remote repository but you can named it as you wish. Just make sure to remember it.)
+- The first time you want to push something on the remote repository, place yourself in the project repository with "_Git_" (use "_cd_" command) and create a link between your computer and the remote repository by typing : "_git remote add origin htpps://github.com/project-url_"
+  ("_origin_" is the conventional name for a remote repository but you can named it as you wish. Just make sure to remember it.)
 
-- The first time you want to push a branch on the remote repository, you should create a branch on the remote repository where to send your feature branch by typing : "*git push --set-upstream origin branch-name-on-remote-repository*"
-(Usually the name on the remote repository is the same as the one on the local repository)
+- The first time you want to push a branch on the remote repository, you should create a branch on the remote repository where to send your feature branch by typing : "_git push --set-upstream origin branch-name-on-remote-repository_"
+  (Usually the name on the remote repository is the same as the one on the local repository)
 
-- The next times you should simply type : "*git push*" to push your code on "*Github*"
+- The next times you should simply type : "_git push_" to push your code on "_Github_"
 
 ### E. Make a pull request
 
@@ -61,47 +61,48 @@ On github:
 
 - go to the project page
 - Click on Pull request tab
-- click on the "*New pull request*" green button on the right.
+- click on the "_New pull request_" green button on the right.
 - choose :
   - the branch where you want to merge yours (develop)
   - the branch to merge in (your branch)
-- Then click on "*Create pull request*" green button on the right
+- Then click on "_Create pull request_" green button on the right
 - Leave a message to your peers ans click on the publish button.
 - wait for codacy analysis results. If something wrong correct your code and push it again (see below for further informations)
-- when the branch is validated (you'll see a green check icon next to the reviewer name in the right panels named "*Reviewers*"), click on "*Merge pull request*" green button at the bottom of the page.
-- click on "*Delete branch*" button
+- when the branch is validated (you'll see a green check icon next to the reviewer name in the right panels named "_Reviewers_"), click on "_Merge pull request_" green button at the bottom of the page.
+- click on "_Delete branch_" button
 
 ### F. Pull modifications into your local repository
 
 Each morning, before start to worfk, you should retrieve project modifications :
 
-- on "*develop*" branch
+- on "_develop_" branch
 - on the branch you work on.
 
 To do so, in Git, you should for these two branches :
 
-- Place yourself on the branch by typing : "*git checkout branch-name*"
-- control than your local branch is uptodate with remote repository by typing : "*git log*" and check if the HEAD and the remote branch are on the same commit.
+- Place yourself on the branch by typing : "_git checkout branch-name_"
+- control than your local branch is uptodate with remote repository by typing : "_git log_" and check if the HEAD and the remote branch are on the same commit.
   If the remote branch are some additional commits, you should :
-  - Control branch compatibility by typing "*git fetch*"
-  - Then, download branch modifications by typing "*git pull*"
-  
-If the branch you just pull from is "*develop*" :
 
-- if the commit pulled is a merge from an other branch (see "*git log*" results), don't forget to delete the branch on your local repository : "*git branch -d merged-branch-into-develop-name*"
+  - Control branch compatibility by typing "_git fetch_"
+  - Then, download branch modifications by typing "_git pull_"
+
+If the branch you just pull from is "_develop_" :
+
+- if the commit pulled is a merge from an other branch (see "_git log_" results), don't forget to delete the branch on your local repository : "_git branch -d merged-branch-into-develop-name_"
 - If you are allready working on an other branch, don't forget to rebase. For that:
-  - place yourself on your working branch : "*git checkout working-branch-name*"
-  - Then typing : "*git rebase develop*"
+  - place yourself on your working branch : "_git checkout working-branch-name_"
+  - Then typing : "_git rebase develop_"
   - Resolve conflicts :
-    - when a conflict shows up, type : "*git mergetool*"
+    - when a conflict shows up, type : "_git mergetool_"
     - in the center choose the code you want to save
     - Save and close the mergetool
-    - Control the code and if all is alright delete "*file-modified.ext.orig*"
-    - control if some modifications sould be committed : "*git status*"
-    - if so, staged it : "*git add .*" then commit "*git commit*" with a comment.
-    - Then, pursue rebase by typing "*git rebase --continue*"
+    - Control the code and if all is alright delete "_file-modified.ext.orig_"
+    - control if some modifications sould be committed : "_git status_"
+    - if so, staged it : "_git add ._" then commit "_git commit_" with a comment.
+    - Then, pursue rebase by typing "_git rebase --continue_"
     - And so on until rebase end.
-    - Push the branch uptodate on remote repository with : "*git push --force-with-lease*"
+    - Push the branch uptodate on remote repository with : "_git push --force-with-lease_"
 
 ---
 
@@ -112,7 +113,13 @@ To guarantee the application quality, you should :
 ### A. Before development
 
 - **Install tools for code quality in your IDE**  
-  like "*php-cs-fixer*", "*intelephense*" for "*VSCode*". These extensions will check your code to ensure code quality.
+  like "_php-cs-fixer_", "_intelephense_" for "_VSCode_". These extensions will check your code to ensure code quality.
+
+- **Know the PSRs**
+  These tools recommanded helps to respect standards but you need to know about them too :
+  - [PSR-1 : Basic Coding Standard](https://www.php-fig.org/psr/psr-1/)
+  - [PSR-4 : Autoloading Standard](https://www.php-fig.org/psr/psr-4/)
+  - [PSR-12 : Extended Coding Style Guide](https://www.php-fig.org/psr/psr-12/)
 
 ### B. During development
 
@@ -136,7 +143,7 @@ To guarantee the application quality, you should :
 
   - be sure to be logged in on [Blackfire website](https://blackfire.io/login)
   - be sure to be on the branch you want to submit for a pull request in git.
-  - In a CLI, don't forget to run Blackfire Agent by typing : "*blackfire agent:start*"
+  - In a CLI, don't forget to run Blackfire Agent by typing : "_blackfire agent:start_"
   - to avoid to significantly slow down the application, don't forget :
     - to disable Xdebug before perform _Blackfire_ analysis, in your php version folder, find php.ini file and replace the line `extension_zend = xdebug` by `;extension_zend = xdebug` (to add a ; before the line comments it)
     - to switch application in production environment by opening the application page with the adress : "https://your-website/app.php" in your browser.

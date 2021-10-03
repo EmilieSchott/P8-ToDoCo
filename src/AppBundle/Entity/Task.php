@@ -36,6 +36,12 @@ class Task
     private $content;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isDone;
@@ -89,5 +95,17 @@ class Task
     public function toggle($flag)
     {
         $this->isDone = $flag;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

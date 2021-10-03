@@ -1,5 +1,7 @@
 imports:
   - { resource: config.yml }
+  - { resource: maker.yml }
+  - { resource: doctrine_migrations.yml }
 
 framework:
   router:

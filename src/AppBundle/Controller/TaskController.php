@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
+use AppBundle\Handler\TaskHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,18 +22,18 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, TaskHandler $taskHandler)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid() && $taskHandler->handleTaskForm($form)) {
+            $entityManager = $this->getDoctrine()->getManager();
 
-            $em->persist($task);
-            $em->flush();
+            $entityManager->persist($task);
+            $entityManager->flush();
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
@@ -87,9 +88,9 @@ class TaskController extends Controller
     public function deleteTaskAction(int $id)
     {
         $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($task);
-        $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($task);
+        $entityManager->flush();
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 

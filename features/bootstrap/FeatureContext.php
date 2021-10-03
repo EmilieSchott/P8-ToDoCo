@@ -1,11 +1,11 @@
 <?php
 
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Defines application features from the specific context.

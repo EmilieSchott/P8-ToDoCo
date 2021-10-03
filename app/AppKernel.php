@@ -20,11 +20,11 @@ class AppKernel extends Kernel
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
             $bundles[] = new Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle();
             $bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle();
+            $bundles[] = new \Symfony\Bundle\MakerBundle\MakerBundle();
+            $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
         }
 
         return $bundles;

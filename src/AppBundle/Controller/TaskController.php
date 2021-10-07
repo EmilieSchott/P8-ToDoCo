@@ -4,9 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Handler\TaskHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TaskController extends Controller
 {
@@ -21,18 +22,18 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, TaskHandler $taskHandler)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid() && $taskHandler->handleTaskForm($form)) {
+            $entityManager = $this->getDoctrine()->getManager();
 
-            $em->persist($task);
-            $em->flush();
+            $entityManager->persist($task);
+            $entityManager->flush();
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
@@ -45,13 +46,15 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function editAction(Task $task, Request $request)
+    public function editAction(int $id, Request $request)
     {
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -68,8 +71,9 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
-    public function toggleTaskAction(Task $task)
+    public function toggleTaskAction(int $id)
     {
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
@@ -81,14 +85,21 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTaskAction(Task $task)
+    public function deleteTaskAction(int $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($task);
-        $em->flush();
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->findOneBy(['id' => $id]);
+        $anonyme = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(['username' => 'Anonyme']);
 
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
+        if (($task->getUser() === $this->getUser() && $task->getUser() !== $anonyme) || ($task->getUser() === $anonyme && in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($task);
+            $entityManager->flush();
 
-        return $this->redirectToRoute('task_list');
+            $this->addFlash('success', 'La tâche a bien été supprimée.');
+
+            return $this->redirectToRoute('task_list');
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 }

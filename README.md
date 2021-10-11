@@ -1,5 +1,7 @@
 # An application to make Todo list
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a8abb96a208f43e28d1b6a5a62cf5f2a)](https://app.codacy.com/gh/EmilieSchott/P8-ToDoCo?utm_source=github.com&utm_medium=referral&utm_content=EmilieSchott/P8-ToDoCo&utm_campaign=Badge_Grade_Settings)
+
 ---
 
 ## Installation

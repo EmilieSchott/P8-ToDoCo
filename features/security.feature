@@ -29,7 +29,7 @@ Feature:
     | "/tasks/1/edit"   |
     | "/tasks/1/toggle" |
     | "/tasks/1/delete" |
-# TO DO : restricted to admin:    | "/users"          |
-# TO DO : restricted to admin:    | "/users/create"	|
-# TO DO : restricted to admin:    | "/users/1/edit"	|
+    | "/users"          |
+    | "/users/create"	|
+    | "/users/1/edit"	|
 # TO DO : route doesn't exist yet:  | "/tasks/done"     |
